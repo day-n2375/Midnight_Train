@@ -81,6 +81,14 @@ const world = {
       responses: ['물론이죠. 저는 이 열차에 탄 뒤 한 번도 내리지 않았어요.', '아까 누군가 좌석 밑에 무언가를 밀어 넣는 걸 봤습니다.'],
     },
   ],
+
+  // 할 일: npc 의 질문을 모두 끝내면 완료. 다른 조건이 필요하면 check 함수를 대신 넣는다.
+  missions: [
+    { id: 'm1', text: '목격자 윤 형사의 진술 듣기', npc: 'witness' },
+    { id: 'm2', text: '식당칸 요리사의 알리바이 확인', npc: 'keeper' },
+    { id: 'm3', text: '2등칸 차장에게 발자국 묻기', npc: 'guard' },
+    { id: 'm4', text: '3등칸 승객 심문하기', npc: 'passenger' },
+  ],
 };
 
 /* =========================================================
@@ -419,6 +427,50 @@ const hash = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x
 const sprites = { player: buildSprite(world.player) };
 for (const n of world.npcs) sprites[n.id] = buildSprite(n);
 
+/* ---------- 할 일 노트 ---------- */
+const missionEls = new Map();
+
+function renderMissions() {
+  const list = $('#missionList');
+  list.replaceChildren();
+  for (const m of world.missions) {
+    const li = document.createElement('li');
+    li.className = 'mission';
+    li.innerHTML = '<span class="box"></span><span class="label"></span>';
+    li.querySelector('.label').textContent = m.text;
+    list.appendChild(li);
+    missionEls.set(m.id, li);
+  }
+}
+
+function missionDone(m) {
+  if (m.check) return m.check();
+  const npc = world.npcs.find(n => n.id === m.npc);
+  return !!npc && !!npc.asked && npc.asked.size >= npc.choices.length;
+}
+
+// 매 프레임 호출. 상태가 바뀐 항목만 클래스를 바꾸고 토스트를 띄운다.
+function updateMissions() {
+  for (const m of world.missions) {
+    const done = missionDone(m);
+    if (done === !!m.done) continue;
+    m.done = done;
+    missionEls.get(m.id)?.classList.toggle('done', done);
+    if (done) showToast('할 일 완료 — ' + m.text);
+  }
+}
+
+let toastTimer = 0;
+function showToast(text) {
+  const el = $('#toast');
+  el.textContent = text;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+renderMissions();
+
 function nearestNpc() {
   let best = null, dist = Infinity;
   for (const n of world.npcs) {
@@ -509,6 +561,7 @@ function update(dt) {
 
   const car = world.cars.find(c => state.playerX >= c.start && state.playerX < c.end) || world.cars.at(-1);
   $('#chapter').textContent = car.name + '  /  23:47';
+  updateMissions();
 
   // 담배 연기 입자
   state.smokeTimer -= dt;
