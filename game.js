@@ -28,7 +28,7 @@ const state = {
 };
 
 // 스프라이트 공통 팔레트 (O 외곽선, S/s 피부, E 눈)
-const PAL_BASE = { O: '#0d0c10', S: '#d9a579', s: '#b27d57', E: '#1a1418' };
+const PAL_BASE = { O: '#0d0c10', S: '#d8a377', s: '#b47e55', Z: '#ecc29a', E: '#1b1517', R: '#3b2a20', W: '#e8e2d2', K: '#3a2c20', Y: '#c9a860', b: '#2e2a31' };
 
 const world = {
   width: 2200,
@@ -36,8 +36,8 @@ const world = {
   viewW: W,
   viewH: H,
   player: {
-    w: 16, h: 36, speed: 100, hat: 'fedora',
-    pal: { H: '#3a3235', h: '#26212a', C: '#8a7150', c: '#6b5740', d: '#5a4835', T: '#b23a3a', P: '#2c2a30', p: '#1f1d22', B: '#15131a' },
+    w: 24, h: 62, speed: 100, hat: 'fedora',
+    pal: { H: '#3a3338', h: '#262126', I: '#4c454b', C: '#8d7656', c: '#6f5c42', D: '#5a4934', L: '#a58e6b', T: '#9a3434', P: '#2e2c33', p: '#211f25', B: '#1a171c' },
   },
 
   // 열차 칸 (왼쪽부터)
@@ -52,28 +52,30 @@ const world = {
   npcs: [
     {
       id: 'witness', name: '윤 형사', role: '1등칸 승객 · 목격자', x: 295, hat: 'fedora',
-      pal: { H: '#4b4f5a', h: '#353840', C: '#5d6b70', c: '#49555a', d: '#3c474b', T: '#c9b28a', P: '#2d3238', p: '#22262b', B: '#141518' },
+      pal: { S: '#cfa07a', s: '#a9794f', Z: '#e4bb92', H: '#4c515c', h: '#353942', I: '#5e636e', C: '#5f6d72', c: '#4a565b', D: '#3b4549', L: '#73848a', W: '#ded8c8', T: '#c9b28a', P: '#2e3338', p: '#22262b', B: '#141518' },
       lines: ['급행열차가 터널에 들어간 순간이었어요. 1등칸에서 비명 소리가 들렸습니다.', '시신 옆에서 이 승차권 조각을 발견했어요.'],
       choices: ['객실에 누가 드나들었습니까?', '그 승차권을 확인하겠습니다.'],
       responses: ['식당칸 직원이 사건 직전에 1등칸으로 향했어요.', '승차권의 좌석 번호가 일부 찢겨 나갔습니다.'],
     },
     {
       id: 'keeper', name: '강 요리사', role: '식당칸 직원', x: 790, hat: 'toque',
-      pal: { H: '#efe9dc', h: '#cfc6b4', C: '#e6e0d2', c: '#c7c0b0', d: '#b5ad9c', T: '#2a2628', P: '#3a3a3e', p: '#2a2a2e', B: '#1a1a1c' },
+      pal: { H: '#efeae0', h: '#cfc8bb', I: '#ffffff', C: '#e4ded0', c: '#c4bcad', D: '#a9a090', L: '#f6f2ea', W: '#2a2628', T: '#2a2628', K: '#e4ded0', Y: '#e4ded0', R: '#5a4030', P: '#3c3c40', p: '#2b2b2f', B: '#1a1a1c' },
+      portraitExtra: 'mustache',
       lines: ['사건이 났을 때 저는 식당칸에서 주문을 받고 있었습니다.', '하지만 잠시 자리를 비운 건 사실입니다.'],
       choices: ['그때 어디에 있었죠?', '피해자와 아는 사이였습니까?'],
       responses: ['물품 보관실에서 와인 상자를 찾고 있었어요.', '열차에 타기 전부터 알고 지낸 사이입니다.'],
     },
     {
       id: 'guard', name: '최 순경', role: '2등칸 차장', x: 1340, hat: 'cap',
-      pal: { H: '#2d3a55', h: '#1f2a40', C: '#34436a', c: '#283552', d: '#202a44', T: '#d5b25c', P: '#2a3350', p: '#1f2640', B: '#15151c' },
+      pal: { H: '#2d3a55', h: '#1f2a40', I: '#3c4b6c', Y: '#d5b25c', C: '#34436a', c: '#283552', D: '#202a44', L: '#45567f', W: '#e6e3da', T: '#1a1d2a', K: '#1a1a22', P: '#2a3350', p: '#1f2640', B: '#15151c' },
       lines: ['2등칸 통로에서 젖은 구두 자국이 발견됐습니다.', '발자국은 뒤쪽 3등칸까지 이어져요.'],
       choices: ['발자국 크기를 기록해 주세요.', '3등칸 승객을 조사하겠습니다.'],
       responses: ['남성용 구두, 왼발에만 진흙이 묻어 있습니다.', '통로 끝에서 수상한 승객을 봤다는군요.'],
     },
     {
       id: 'passenger', name: '한 승객', role: '3등칸 승객', x: 1910, hat: 'flat',
-      pal: { H: '#6b5742', h: '#4f3f30', C: '#7a5a3d', c: '#5f462f', d: '#4b3726', T: '#a63c3c', P: '#3f3a35', p: '#2f2b27', B: '#1c1915' },
+      pal: { S: '#c89a72', s: '#a3754f', Z: '#dcb48b', H: '#6b5742', h: '#4f3f30', I: '#7f6a52', C: '#7a5a3d', c: '#5f462f', D: '#4b3726', L: '#8f6d4b', W: '#c9b89a', T: '#a63c3c', R: '#4a3a2e', P: '#3f3a35', p: '#2f2b27', B: '#1c1915' },
+      portraitExtra: 'beard',
       lines: ['저는 아무것도 못 봤어요. 밤새 잠들어 있었으니까요.', '잠깐… 그 구두 자국, 제 좌석 앞에서 끝났나요?'],
       choices: ['신발을 확인해도 될까요?', '왜 그렇게 놀라셨죠?'],
       responses: ['물론이죠. 저는 이 열차에 탄 뒤 한 번도 내리지 않았어요.', '아까 누군가 좌석 밑에 무언가를 밀어 넣는 걸 봤습니다.'],
@@ -87,120 +89,278 @@ const world = {
  *    C c d 코트 / T 포인트(넥타이·단추) / P p 바지 / B 구두
  * ========================================================= */
 const SPRITE = {
+  // ---- 머리 24x18: 모자 + 얼굴 (이마·눈썹·눈·코·입·턱) ----
   heads: {
     fedora: [
-      '....OOOOOOOO....',
-      '...OHHHHHHHHO...',
-      '...OHHHHHHhhO...',
-      '...OHHHHHHhhO...',
-      '.OOOhhhhhhhhOOO.',
-      'OHHHHHHHHHHHHHhO',
-      '.OOOOOOOOOOOOOO.',
-      '....OssssssO....',
-      '....OSESSESO....',
-      '....OSSSSSSO....',
-      '....OsSSSSsO....',
-      '.....OsssO......',
-      '......OSO.......',
+      '.........OOOOOO.........',
+      '.......OOIIHHHHOO.......',
+      '......OIIHHHHHHHhO......',
+      '......OIHHHHHHHHhO......',
+      '......OHHHHHHHHhhO......',
+      '.....OOhhhhhhhhhhOO.....',
+      '...OOOHHHHHHHHHHHhOOO...',
+      '..OIHHHHHHHHHHHHHhhhhO..',
+      '...OOOOOOOOOOOOOOOOOO...',
+      '........OsssssssO.......',
+      '.......OSSSSSSSSsO......',
+      '.......OSZSSSSZSsO......',
+      '.......OSEESSSEEsO......',
+      '.......OSSSSsSSSsO......',
+      '.......OsSSSsSSssO......',
+      '........OSSsssSsO.......',
+      '........OsSSSSssO.......',
+      '.........OOssssO........',
     ],
     toque: [
-      '.....OOOOOO.....',
-      '....OHHHHHHO....',
-      '...OHHHHHHHHO...',
-      '...OHHHHHHHhO...',
-      '...OHHHHHHhhO...',
-      '....OhhhhhhO....',
-      '....OOOOOOOO....',
-      '....OSSSSSSO....',
-      '....OSESSESO....',
-      '....OSSSSSSO....',
-      '....OsSSSSsO....',
-      '.....OsssO......',
-      '......OSO.......',
+      '........OOOOOOOO........',
+      '.......OIIHHHHHHO.......',
+      '......OIIHHHHHHHhO......',
+      '......OIHHHHHHHHhO......',
+      '......OIHHHHHHHhhO......',
+      '......OHHHHHHHhhhO......',
+      '.......OhhhhhhhhO.......',
+      '.......OOOOOOOOOO.......',
+      '.......OSSSSSSSSsO......',
+      '.......OSSSSSSSSsO......',
+      '.......OSSSSSSSSsO......',
+      '.......OSZSSSSZSsO......',
+      '.......OSEESSSEEsO......',
+      '.......OSSSSsSSSsO......',
+      '.......OsSSRRRSssO......',
+      '........OSSsssSsO.......',
+      '........OsSSSSssO.......',
+      '.........OOssssO........',
     ],
     cap: [
-      '................',
-      '.....OOOOOO.....',
-      '....OHHHHHHO....',
-      '...OHHHTHHHhO...',
-      '...OhhhhhhhhO...',
-      '...OOOOOOOOOOO..',
-      '....OhhhhhhhhO..',
-      '....OssssssOO...',
-      '....OSESSESO....',
-      '....OSSSSSSO....',
-      '....OsSSSSsO....',
-      '.....OsssO......',
-      '......OSO.......',
+      '........................',
+      '.......OOOOOOOOOO.......',
+      '.....OOIHHHHHHHHhOO.....',
+      '....OIHHHHHYYHHHHhhO....',
+      '....OHHHHHHYYHHHHhhO....',
+      '....OhhhhhhhhhhhhhhO....',
+      '....OOOOOOOOOOOOOOOOO...',
+      '......OhhhhhhhhhhhhO....',
+      '.......OsssssssssO......',
+      '.......OSSSSSSSSsO......',
+      '.......OSSSSSSSSsO......',
+      '.......OSZSSSSZSsO......',
+      '.......OSEESSSEEsO......',
+      '.......OSSSSsSSSsO......',
+      '.......OsSSSsSSssO......',
+      '........OSSsssSsO.......',
+      '........OsSSSSssO.......',
+      '.........OOssssO........',
     ],
     flat: [
-      '................',
-      '................',
-      '.....OOOOOO.....',
-      '...OOHHHHHHOO...',
-      '..OHHHHHHHHHHO..',
-      '..OhhhhhhhhhhOO.',
-      '...OOOOOOOOOOhO.',
-      '....OssssssOOO..',
-      '....OSESSESO....',
-      '....OSSSSSSO....',
-      '....OsSSSSsO....',
-      '.....OsssO......',
-      '......OSO.......',
+      '........................',
+      '........................',
+      '........OOOOOOOO........',
+      '......OOIIHHHHHHOO......',
+      '.....OIHHHHHHHHHHhO.....',
+      '.....OHHHHHHHHHHhhO.....',
+      '.....OhhhhhhhhhhhhOOO...',
+      '......OOOOOOOOOOOOhhO...',
+      '.......OsssssssssOOO....',
+      '.......OSSSSSSSSsO......',
+      '.......OSSSSSSSSsO......',
+      '.......OSZSSSSZSsO......',
+      '.......OSEESSSEEsO......',
+      '.......OSSSSsSSSsO......',
+      '.......OsSSSsSSssO......',
+      '........ORRsssRRO.......',
+      '........ORRRRRRsO.......',
+      '.........OORRRRO........',
     ],
   },
+  // ---- 몸통 24x24: 목, 옷깃, 셔츠 V존, 넥타이, 어깨, 팔, 벨트, 손, 코트 자락 ----
   torso: [
-    '....OddTTddO....',
-    '...OCdddTdddCO..',
-    '..OCCCddTddCCCO.',
-    '..OCCCCdTdCCCCO.',
-    '.OCCCCCCTCCCCCCO',
-    '.OcCCCCCCCCCCCcO',
-    '.OcCCCCCCCCCCCcO',
-    '.OcCCCOOOOOCCCcO',
-    '.OcCCCCCCCCCCCcO',
-    '.OsOCCCCCCCCCOsO',
-    '.OOOCCCCCCCCCOOO',
-    '...OCCCCCCCCCO..',
-    '...OcccccccccO..',
+    '..........OssssO........',
+    '.......OOOWssssWOOO.....',
+    '.....OLCCDWWssWWDCCcO...',
+    '....OLCCCDDWWWWDDCCCcO..',
+    '...OLCCCCCDWTTWDCCCCcO..',
+    '..OLCCCCCCDWTTWDCCCCCcO.',
+    '..OLCCCCCCCDTTDCCCCCCcO.',
+    '..OLCCCCCCCDTTDCCCCCCcO.',
+    '..OLCCCCCCCDDDDCCCCCCcO.',
+    '..OLCcCCCCCCDCCCCCCCccO.',
+    '..OLCcCCCCCCDCCCCCCCccO.',
+    '..OLCcCCCCCCDCCCCCCCccO.',
+    '..OLCcCKKKKKYKKKKKKCccO.',
+    '..OLCcCCCCCCDCCCCCCCccO.',
+    '..OLCcCCCCCCDCCCCCCCccO.',
+    '..OLcOCCCCCCDCCCCCCOccO.',
+    '..OSsOCCCCCCDCCCCCCOSsO.',
+    '..OSsOCCCCCCDCCCCCCOSsO.',
+    '..OOOOCcCCCCDCCCCCcOOOO.',
+    '.....OCcCCCCDCCCCCcO....',
+    '.....OCcCCCCDCCCCCcO....',
+    '.....OCcCCCCDCCCCCcO....',
+    '.....OccCCCCDCCCCccO....',
+    '.....OOOOOOOOOOOOOOO....',
   ],
+  // ---- 다리 24x20: A 서 있음 / B 보폭 최대 / C 교차 ----
   legs: {
-    A: [ // 서 있음
-      '....OPPOOPPO....',
-      '....OPPO.OPPO...',
-      '....OPPO.OPPO...',
-      '....OppO.OppO...',
-      '....OppO.OppO...',
-      '....OppO.OppO...',
-      '....OBBO.OBBO...',
-      '...OBBBO.OBBBO..',
-      '...OOOOO.OOOOO..',
-      '................',
+    A: [
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPpPpOPpPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OpppOOOpppO......',
+      '.......OBbBOOOBbBO......',
+      '......OBBBBOOBBBBO......',
+      '.....OBBBBBOOBBBBBO.....',
+      '.....OObbbbOObbbbOO.....',
+      '......OOOOO..OOOOO......',
     ],
-    B: [ // 보폭 최대
-      '...OPPOOOOPPO...',
-      '..OPPO...OPPO...',
-      '..OPPO....OPPO..',
-      '..OppO....OppO..',
-      '.OppO......OppO.',
-      '.OppO......OppO.',
-      '.OBBO......OBBO.',
-      'OBBBO......OBBBO',
-      'OOOOO......OOOOO',
-      '................',
+    B: [
+      '.......OPPPpOPPPpO......',
+      '......OPPPpOOOPPPpO.....',
+      '......OPPPpO.OPPPpO.....',
+      '.....OPPPpO...OPPPpO....',
+      '.....OPPPpO...OPPPpO....',
+      '....OPpPpO.....OPpPpO...',
+      '....OPPPpO.....OPPPpO...',
+      '....OPPPpO.....OPPPpO...',
+      '...OPPPpO.......OPPPpO..',
+      '...OPPPpO.......OPPPpO..',
+      '...OPPPpO.......OPPPpO..',
+      '..OPPPpO.........OPPPpO.',
+      '..OPPPpO.........OPPPpO.',
+      '..OPPPpO.........OPPPpO.',
+      '..OpppO...........OpppO.',
+      '..OBbBO...........OBbBO.',
+      '.OBBBBO..........OBBBBO.',
+      'OBBBBBO.........OBBBBBO.',
+      'OObbbbO.........ObbbbOO.',
+      '.OOOOO...........OOOOO..',
     ],
-    C: [ // 중간 걸음
-      '....OPPOOPPO....',
-      '....OPPO.OPPO...',
-      '...OPPO..OPPO...',
-      '...OppO..OppO...',
-      '..OppO...OppO...',
-      '..OppO...OppO...',
-      '..OBBO...OBBO...',
-      '.OBBBO...OBBBO..',
-      '.OOOOO...OOOOO..',
-      '................',
+    C: [
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPpPpOPpPpO......',
+      '.......OPPPpOPPPpO......',
+      '.......OPPPpOPPPpO......',
+      '......OPPPpOOPPPpO......',
+      '......OPPPpOOPPPpO......',
+      '......OPPPpO.OPPPpO.....',
+      '......OPPPpO.OPPPpO.....',
+      '......OPPPpO.OPPPpO.....',
+      '......OPPPpO.OPPPpO.....',
+      '......OpppO..OpppO......',
+      '......OBbBO..OBbBO......',
+      '.....OBBBBO..OBBBBO.....',
+      '....OBBBBBO..OBBBBBO....',
+      '....OObbbbO..ObbbbOO....',
+      '.....OOOOO....OOOOO.....',
     ],
+  },
+};
+
+// ---- 대화창 초상화 32x32: 얼굴 클로즈업 + 모자 오버레이 + 수염 ----
+const PORTRAIT = {
+  face: [
+    '................................',
+    '................................',
+    '................................',
+    '................................',
+    '................................',
+    '................................',
+    '................................',
+    '................................',
+    '...........OOOOOOOOOO...........',
+    '..........OSSSSSSSSSsO..........',
+    '.........OSSSSSSSSSSssO.........',
+    '.........OSZSSSSSSSSssO.........',
+    '.........OSZSSSSSSSSssO.........',
+    '.........OsssSSSSsssssO.........',
+    '.........OSEESSSSSEEssO.........',
+    '.........OSOEZSSSSOEZsO.........',
+    '.........OSSSSSsSSSSssO.........',
+    '.........OSSSSsSsSSSssO.........',
+    '.........OSSSSsSsSSSssO.........',
+    '.........OSSSSssssSSssO.........',
+    '..........OSSSSSSSSSsO..........',
+    '..........OSSsssssSSsO..........',
+    '..........OSSSSSSSSssO..........',
+    '...........OsSSSSSssO...........',
+    '............OOssssOO............',
+    '.............OssssO.............',
+    '.............OssssO.............',
+    '........OOOOOOssssOOOOOO........',
+    '......OLCCCCDWWssWWDCCCCcO......',
+    '....OLCCCCCCCDWTTWDCCCCCCCcO....',
+    '..OLCCCCCCCCCDDTTDDCCCCCCCCCcO..',
+    '.OLCCCCCCCCCCCDTTDCCCCCCCCCCCcO.',
+  ],
+  hats: {
+    fedora: [
+      '............OOOOOOOO............',
+      '..........OOIIHHHHHHOO..........',
+      '.........OIIHHHHHHHHhhO.........',
+      '.........OIHHHHHHHHHhhO.........',
+      '.........OHHHHHHHHHhhhO.........',
+      '........OOhhhhhhhhhhhhOO........',
+      '.....OOOOHHHHHHHHHHHHHhOOOO.....',
+      '...OIHHHHHHHHHHHHHHHHHHhhhhhO...',
+      '....OOOOOOOOOOOOOOOOOOOOOOOO....',
+      '...........ssssssssss...........',
+      '..........ssssssssssss..........',
+    ],
+    toque: [
+      '...........OOOOOOOOOO...........',
+      '.........OOIIHHHHHHHOO..........',
+      '........OIIHHHHHHHHHhhO.........',
+      '........OIHHHHHHHHHHhhO.........',
+      '........OIHHHHHHHHHhhhO.........',
+      '........OHHHHHHHHHhhhhO.........',
+      '........OHHHHHHHHhhhhhO.........',
+      '.........OhhhhhhhhhhhhO.........',
+      '.........OOOOOOOOOOOOOO.........',
+    ],
+    cap: [
+      '................................',
+      '...........OOOOOOOOOO...........',
+      '.........OOIHHHHHHHHhOO.........',
+      '........OIHHHHHYYHHHHhhO........',
+      '........OHHHHHHYYHHHHhhO........',
+      '........OhhhhhhhhhhhhhhO........',
+      '.......OOOOOOOOOOOOOOOOOO.......',
+      '........OhhhhhhhhhhhhhhhO.......',
+      '.........OOOOOOOOOOOOOOO........',
+      '...........ssssssssss...........',
+      '..........ssssssssssss..........',
+    ],
+    flat: [
+      '................................',
+      '................................',
+      '...........OOOOOOOOOO...........',
+      '.........OOIIHHHHHHHOO..........',
+      '........OIHHHHHHHHHHhhO.........',
+      '........OHHHHHHHHHHHhhO.........',
+      '........OhhhhhhhhhhhhhOOOO......',
+      '.........OOOOOOOOOOOOOhhhO......',
+      '..........OOOOOOOOOOOOOOO.......',
+      '...........ssssssssss...........',
+      '..........ssssssssssss..........',
+    ],
+  },
+  extras: {
+    mustache: { y: 20, rows: ['............RRRRRRRR............'] },
+    beard: { y: 22, rows: ['...........RRRRRRRRRR...........', '............RRRRRRRR............', '..............RRRR..............'] },
   },
 };
 
@@ -221,13 +381,21 @@ function buildSprite(def) {
   const frames = {};
   for (const key of ['A', 'B', 'C']) {
     const c = document.createElement('canvas');
-    c.width = 16; c.height = 36;
+    c.width = 24; c.height = 62;
     const g = c.getContext('2d');
     paintMap(g, SPRITE.heads[def.hat], 0, 0, pal);
-    paintMap(g, SPRITE.torso, 0, 13, pal);
-    paintMap(g, SPRITE.legs[key], 0, 26, pal);
+    paintMap(g, SPRITE.torso, 0, 18, pal);
+    paintMap(g, SPRITE.legs[key], 0, 42, pal);
     frames[key] = c;
   }
+  // 초상화: 얼굴 → 모자 → 수염 순으로 덮어 그린다.
+  const portrait = document.createElement('canvas');
+  portrait.width = 32; portrait.height = 32;
+  const pg = portrait.getContext('2d');
+  paintMap(pg, PORTRAIT.face, 0, 0, pal);
+  paintMap(pg, PORTRAIT.hats[def.hat], 0, 0, pal);
+  if (def.portraitExtra) { const ex = PORTRAIT.extras[def.portraitExtra]; paintMap(pg, ex.rows, 0, ex.y, pal); }
+  frames.portrait = portrait;
   return frames;
 }
 
@@ -346,8 +514,8 @@ function update(dt) {
   state.smokeTimer -= dt;
   if (state.smokeTimer <= 0) {
     state.smokeTimer = .18 + Math.random() * .15;
-    const tip = state.playerX + (state.facing > 0 ? 4 : -5);
-    state.smoke.push({ x: tip + .5, y: FLOOR - 27, vx: (Math.random() - .5) * 4 + state.facing * 2, vy: -9 - Math.random() * 6, life: 1.6 + Math.random() * .8, ph: Math.random() * 6 });
+    const tip = state.playerX + (state.facing > 0 ? 7 : -8);
+    state.smoke.push({ x: tip + .5, y: FLOOR - 48, vx: (Math.random() - .5) * 4 + state.facing * 2, vy: -9 - Math.random() * 6, life: 1.6 + Math.random() * .8, ph: Math.random() * 6 });
   }
   for (const p of state.smoke) {
     p.life -= dt; p.ph += dt * 3;
@@ -481,8 +649,8 @@ function say(npc, text, player, done) {
   if (!player) {
     const p = document.createElement('canvas');
     p.className = 'portrait';
-    p.width = 48;
-    p.height = 48;
+    p.width = 32;
+    p.height = 32;
     drawPortrait(npc, p);
     row.appendChild(p);
   }
@@ -531,17 +699,17 @@ function closeDialogue() {
   optionsEl.style.display = 'flex';
 }
 
-// 대화창 초상화: 스프라이트 상반신(16x16)을 3배로 확대
+// 대화창 초상화: 32x32 얼굴 클로즈업 (CSS에서 2배로 확대)
 function drawPortrait(n, canvas) {
   const g = canvas.getContext('2d');
   g.imageSmoothingEnabled = false;
-  g.fillStyle = '#1a1d1f';
-  g.fillRect(0, 0, 48, 48);
-  g.fillStyle = '#242a2e';
-  g.fillRect(6, 6, 36, 36);
-  g.fillStyle = dither('#3a3128', 4);
-  g.fillRect(0, 0, 48, 48);
-  g.drawImage(sprites[n.id].A, 0, 0, 16, 16, 0, 0, 48, 48);
+  g.fillStyle = '#15181a';
+  g.fillRect(0, 0, 32, 32);
+  g.fillStyle = dither('#4a3a28', 5);
+  g.fillRect(0, 0, 32, 32);
+  g.fillStyle = dither('#6a5238', 3);
+  g.fillRect(4, 0, 24, 32);
+  g.drawImage(sprites[n.id].portrait, 0, 0);
 }
 
 /* =========================================================
@@ -593,15 +761,15 @@ function draw(t) {
     if (n === state.nearbyNpc) lights.push({ x, y: FLOOR, r: 16, color: 'rgba(255,220,150,.22)' });
     drawSprite(sprites[n.id], x, FLOOR - breathe, 'A', face);
   }
-  const walkFrame = ['A', 'C', 'B', 'C'][(t / 110 | 0) % 4];
-  const bob = state.moving ? ((t / 110 | 0) % 2 ? 1 : 0) : (((t / 900) | 0) % 2 ? 1 : 0);
+  const walkFrame = ['B', 'C', 'A', 'C'][(t / 120 | 0) % 4];
+  const bob = state.moving ? ((t / 120 | 0) % 2 ? 1 : 0) : (((t / 900) | 0) % 2 ? 1 : 0);
   const px = state.playerX - cam;
   drawSprite(sprites.player, px, FLOOR - bob, state.moving ? walkFrame : 'A', state.facing);
-  // 담배
-  const xr = Math.round(px), my = FLOOR - bob - 26;
-  const cx = state.facing > 0 ? xr + 1 : xr - 4;
-  rect(cx, my, 3, 1, '#e8e0d0');
-  rect(state.facing > 0 ? xr + 4 : xr - 5, my, 1, 1, ((t / 150 | 0) % 3) ? '#ff6a3a' : '#ffb080');
+  // 담배 (입 높이 = 발에서 47px 위)
+  const xr = Math.round(px), my = FLOOR - bob - 47;
+  const cx = state.facing > 0 ? xr + 3 : xr - 7;
+  rect(cx, my, 4, 1, '#e8e0d0');
+  rect(state.facing > 0 ? xr + 7 : xr - 8, my, 1, 1, ((t / 150 | 0) % 3) ? '#ff6a3a' : '#ffb080');
 
   drawLights(t);
   drawParticles(cam, t);
@@ -609,7 +777,7 @@ function draw(t) {
   // 근처 NPC 머리 위 "!" 말풍선
   if (state.nearbyNpc && !dialogueEl.classList.contains('open')) {
     const xi = Math.round(state.nearbyNpc.x - cam);
-    const by = FLOOR - 50 + Math.round(Math.sin(t * .006) * 2);
+    const by = FLOOR - 76 + Math.round(Math.sin(t * .006) * 2);
     rect(xi - 5, by, 10, 9, '#0d0c10');
     rect(xi - 4, by + 1, 8, 7, '#f3e7c4');
     rect(xi - 1, by + 9, 2, 1, '#0d0c10');
@@ -894,11 +1062,11 @@ function drawFloor(car, sx, ex, cam) {
 /* ---------- 캐릭터 ---------- */
 function drawSprite(frames, x, y, frame, facing) {
   const img = frames[frame];
-  const xi = Math.round(x), sx = xi - 8, sy = Math.round(y) - 36;
+  const xi = Math.round(x), sx = xi - 12, sy = Math.round(y) - 62;
   ctx.fillStyle = dither('#04060a', 9);
-  ctx.beginPath(); ctx.ellipse(xi, FLOOR + 1, 9, 2.5, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(xi, FLOOR + 1, 12, 3, 0, 0, Math.PI * 2); ctx.fill();
   if (facing < 0) {
-    ctx.save(); ctx.translate(sx + 16, sy); ctx.scale(-1, 1); ctx.drawImage(img, 0, 0); ctx.restore();
+    ctx.save(); ctx.translate(sx + 24, sy); ctx.scale(-1, 1); ctx.drawImage(img, 0, 0); ctx.restore();
   } else ctx.drawImage(img, sx, sy);
 }
 
