@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>밤의 단서 — 픽셀 탐정 RPG</title>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="game" aria-label="밤의 단서 픽셀 RPG 게임 화면">
+    <!-- 게임 월드 (캔버스) -->
+    <canvas id="world" width="480" height="270" aria-label="옆에서 보는 밤거리"></canvas>
+    <div class="grain"></div>
+    <div class="vignette"></div>
+
+    <!-- 상단 바: 타이틀 + 현재 칸/시각 -->
+    <header class="topbar">
+      <div class="brand">밤의 단서<small>THE NIGHT EXPRESS · MURDER CASE</small></div>
+      <div id="chapter" class="chapter">1등칸 &nbsp; / &nbsp; 23:47</div>
+    </header>
+
+    <!-- 조작 안내 -->
+    <div class="help">
+      <span><i class="key">A</i><i class="key">D</i> 이동</span>
+      <span><i class="key">F</i> 대화 · 선택</span>
+    </div>
+
+    <!-- NPC 근처일 때 표시되는 안내 -->
+    <div id="nearby" class="nearby">F &nbsp; 대화하기</div>
+
+    <!-- 대화 패널 (사건 파일 형태) -->
+    <section id="dialogue" class="dialogue" aria-live="polite">
+      <div class="file-head">
+        <span>CASE FILE &nbsp; / &nbsp; FIELD INTERVIEW</span>
+        <div class="file-actions">
+          <span class="stamp">EVIDENCE</span>
+          <button id="closeDialogue" class="close-dialogue" type="button" aria-label="대화 나가기" title="대화 나가기 (Esc)">×</button>
+        </div>
+      </div>
+      <div class="file-body">
+        <div id="conversation" class="conversation" aria-label="대화 기록"></div>
+        <div id="options" class="options"></div>
+        <div id="continue" class="continue">ESC / × &nbsp; 대화 나가기</div>
+      </div>
+    </section>
+
+    <div id="toast" class="toast"></div>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
